@@ -1,6 +1,7 @@
-export function createProhibitedWordsList (fileUrl: RequestInfo, splitter: string) {
-    fetch(fileUrl)
-    .then(data => data.text())
-    .then(data =>console.log(data.replace(/\r\n|\n|\r/gm, ",").split(splitter)))
-};
-
+export function createprohibitedWordsArray (arrayOfProhibitedWords: string[][]) {
+    let prohibitedWordsFinal: string[] = [];
+    for (let array = 0; array < arrayOfProhibitedWords.length; array++) {
+        prohibitedWordsFinal = prohibitedWordsFinal.concat(arrayOfProhibitedWords[array])
+    }
+    return prohibitedWordsFinal;
+ }
