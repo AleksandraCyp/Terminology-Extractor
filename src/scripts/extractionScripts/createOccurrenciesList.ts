@@ -6,6 +6,6 @@ export function createOccurrenciesList(splittedWordsArray: string[]): ['string',
         } else {
             occurrenciesMap.set(word, 1);
         }
-    } return Array.from(occurrenciesMap);
+    }  return Array.from(occurrenciesMap);
 } 
 

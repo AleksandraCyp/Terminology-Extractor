@@ -1,9 +1,9 @@
-import { createTermsArray } from './createTermsArray'
+import { createOneWordTermsArray } from './createOneWordTermsArray'
 
 const button = document.querySelector('#createListButton') as HTMLButtonElement;
 
  button.addEventListener('click', () => {
-   createTermsArray('English', 3)   
+   createOneWordTermsArray('English', 2) 
  })
 
   
