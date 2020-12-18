@@ -1,0 +1,97 @@
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    margin: 20px;
+}
+
+/* first screen */
+
+#textImputArea {
+    padding: 10px;
+    border: solid 2px rgb(20, 20, 49);
+    grid-column: span 2;
+    height: 350px;
+}
+
+/* second screen */
+
+#textShowScreen {
+    white-space: pre-wrap;
+    padding: 10px; 
+    border: solid 2px rgb(20, 20, 49);
+    overflow: scroll;
+    grid-column: span 2;
+    height: 350px;
+}
+
+.emphasizedWord {
+    background-color: greenyellow;
+}
+
+#occurrenciesForm {
+    margin: 20px 0px;
+    grid-column: span 2;
+}
+
+#occurrenciesForm input {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.occurrenciesList li {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 250px 250px 1fr;
+    grid-auto-rows: 60px;
+}
+
+.example {
+    border: 1px solid gray;
+    display: grid;
+    grid-template-columns: 30px 1fr 30px;
+    align-content: stretch;
+    justify-content: center;
+    text-align: center;
+}
+
+.exampleMain {
+    overflow-y: scroll;
+    display: grid;
+    align-content: center;
+}
+
+.exampleMain input {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.exampleArrow {
+    display: grid;
+    align-content: stretch;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 233, 205);
+}
+
+.exampleArrowLeft {
+    border-right: 1px solid gray;
+}
+
+.exampleArrowRight {
+    border-left: 1px solid gray;
+}
