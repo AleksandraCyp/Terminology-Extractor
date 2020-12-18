@@ -15,7 +15,7 @@ import { createMultipleTermsArray } from './extractionScripts/createMultipleTerm
 function createNewScreen () {
    const app = document.querySelector('.app');
    app!.classList.add('secondScreenApp');
-   app!.innerHTML = '<div id="textShowScreen"></div><input type="button" value="+" id="addNewTerm"><select id="whichAdditionalScreens" name="whichAdditionalScreen"><option value="examples">show example sentences</option><option value="parallelText">show a parallel text</option></select><form id="occurrenciesForm"><ul class="occurrenciesList" id="occurrenciesListNoTranslation"></ul></form><div class="additionalScreens"></div>';
+   app!.innerHTML = '<div id="textShowScreen"></div><input type="button" value="+" id="addNewTerm"><select id="whichAdditionalScreens" name="whichAdditionalScreen"><option value="examples">show example sentences</option><option value="parallelText">show a parallel text</option></select><form id="occurrenciesForm"><ul class="occurrenciesList" id="occurrenciesListNoTranslation"></ul></form><input type="button" id="downloadList" value="download a txt list">';
 }
 
  function showOccurrencyArray (occurrencyArray: [string, number][], text: string) {
@@ -54,6 +54,26 @@ function createNewScreen () {
      } 
    } 
  }
+
+ function download(filename: string, text: string) {
+   const element = document.createElement('a');
+   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+   element.setAttribute('download', filename);
+ 
+   element.style.display = 'none';
+   document.body.appendChild(element);
+ 
+   element.click();
+ 
+   document.body.removeChild(element);
+ }
+
+ 
+
+
+
+
+
 
 export function createOneWordTermsArray (language: string, limitOccurrenciesNr: number, extractOrNo: 'extract' | 'notExtract') {
    let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value; 
@@ -105,6 +125,9 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
    occurrencies!.insertBefore(newTermListItem, occurrencies!.firstElementChild);
    changeAdditionalScreen(whichAdditionalScreens, examples);
    })
-
+   const downloadButton = document.querySelector('#downloadList');
+   downloadButton?.addEventListener('click', () => {
+      download("plik", "Udało się!\nJesteś\t wielki!")
+   })
 }
  
