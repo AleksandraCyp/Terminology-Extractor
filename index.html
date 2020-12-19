@@ -12,9 +12,11 @@
     </head>
     <body>
         <div class='app'>
-            <textarea id='textImputArea'></textarea>
+            <textarea id='textImputArea'>Paste your text here</textarea>
             <input type='button' value='create term list' id='createListButton'/>
-            <label>autoextraction<input type="checkbox" id="autoextractionCheckbox"></label>
+            <label class='extractionOptions'>autoextraction:<input type="checkbox" id="autoextractionCheckbox"></label>
+            <label class='extractionOptions'>extraction language:<select id="selectLanguage"><option value="English">English</option></select></label>
+            <label class='extractionOptions'>minimal number of occurrencies:<input type="number" id='minNumOfOccurrencies' min='2' value='3'></labelm>
         </div>
     </body>
 </html>
