@@ -1,2 +1,2 @@
 # Terminology-Extractor
-Narzędzie do tworzenia dwójęzycznych glosariuszy
+Narzędzie do tworzenia dwujęzycznych glosariuszy
