@@ -23,11 +23,6 @@ extractionCheckbox.addEventListener('input', () => {
  })
 
 
-fetch("https://cors-anywhere.herokuapp.com/" + 'https://glosbe.com/gapi/translate?from=pol&dest=eng&format=json&phrase=witaj&pretty=true:[https://glosbe.com/gapi/translate?from=pol&dest=eng&format=json&phrase=matka&pretty=true]')
-.then(data => data.json())
-.then(data => console.log(data))
-
-
 
 
 
