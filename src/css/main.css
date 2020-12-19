@@ -167,6 +167,7 @@
     border: none;
     padding: 10px;
     overflow-y: scroll;
+    white-space: pre-wrap;
 }
 
 #parallelTextArea #acceptParallelTextButton  {
