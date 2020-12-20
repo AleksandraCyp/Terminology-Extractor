@@ -20,8 +20,11 @@ import { assingTermIndex } from './secondPageCreationScripts/assignTermIndex';
 import { createGlossaryFile } from './secondPageCreationScripts/createGlossaryFile';
 import { changeParallelTextArea } from './secondPageCreationScripts/changeParallelTextArea';
 import { showNextLastExample } from './secondPageCreationScripts/showNextLastExample';
-import { showNextLastSingleItem } from './secondPageCreationScripts/showNextLastSingleItem'
-import { EnglishProhibitedExpressionWords } from './extractionScripts/EnglishProhibitedExpressionWords'
+import { showNextLastSingleItem } from './secondPageCreationScripts/showNextLastSingleItem';
+import { EnglishProhibitedExpressionWords } from './extractionScripts/EnglishProhibitedExpressionWords';
+import { createRedundantExpressions } from './extractionScripts/createRedundantExpressions';
+import { deleteRedundantExpressions } from './extractionScripts/deleteRedundantExpressions';
+import { deleteProhibitedExpressions } from './extractionScripts/deleteProhibitedExpressions';
 
 export function createOneWordTermsArray (language: string, limitOccurrenciesNr: number, extractOrNo: 'extract' | 'notExtract') {
    let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value; 
@@ -58,8 +61,10 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
       default:  multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr);
    }
    const oneWordTermsPlusMultiple = multipleWordTerms.concat(minimizedOccurrenciesList);
+   const oneWordTermsPlusMultipleRedundantWords = createRedundantExpressions(oneWordTermsPlusMultiple);
+   const oneWordTermsPlusMultipleRedundant: [string, number][] = deleteRedundantExpressions(oneWordTermsPlusMultiple, oneWordTermsPlusMultipleRedundantWords)
 
-    const sortedList = sortOccurrenciesListByNr(oneWordTermsPlusMultiple)
+    const sortedList = sortOccurrenciesListByNr(oneWordTermsPlusMultipleRedundant)
     console.log(sortedList)
     createNewScreen() 
     showOccurrencyArray(sortedList, text);

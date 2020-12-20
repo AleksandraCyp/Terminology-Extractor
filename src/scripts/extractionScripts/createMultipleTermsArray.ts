@@ -6,31 +6,8 @@ import { sortOccurrenciesListByNr } from '../extractionScripts/sortOccurrenciesL
 import { deleteProhibitedExpressions } from './deleteProhibitedExpressions';
 import { deleteNumbers } from './deleteNumbers';
 import { deleteOneLetterWords } from './deleteOneLetterWords';
-
- 
-function createRedundantExpressions (expressionArrayWithOccurrencies: [string, number][]) {
-    const redundantExpressions: string[] = [];
-    for (let expression of expressionArrayWithOccurrencies) {
-        for (let expression2 of expressionArrayWithOccurrencies) {
-            if (expression[0] !== expression2[0]) {
-                if (expression[1] === expression2[1]) {
-                    if (expression[0].includes(expression2[0])) {
-                        redundantExpressions.push(expression2[0])
-                    }
-                }
-            }
-        }
-    } return redundantExpressions
-}
-
-    function deleteRedundantExpressions (expressionArrayWithOccurrencies: [string, number][], redundandExp: string[]) {
-        const arrayNoRedundant: [string, number][] = [];
-        for (let expresssion of expressionArrayWithOccurrencies) {
-            if (!redundandExp.includes(expresssion[0])) {
-                arrayNoRedundant.push(expresssion);
-            }
-        } return arrayNoRedundant;
-    }
+import { createRedundantExpressions } from './createRedundantExpressions';
+import { deleteRedundantExpressions } from './deleteRedundantExpressions';
 
 export function createMultipleTermsArray (langProhibitedWordsArray: string[], minNrOccur: number) {
     const prohibitedWords = langProhibitedWordsArray;
