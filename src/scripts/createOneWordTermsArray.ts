@@ -25,14 +25,7 @@ import { EnglishProhibitedExpressionWords } from './extractionScripts/EnglishPro
 
 export function createOneWordTermsArray (language: string, limitOccurrenciesNr: number, extractOrNo: 'extract' | 'notExtract') {
    let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value; 
-   /* experiment start */
-   switch (language) {
-      case 'English':
-         createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr)
-         break;
-      default: createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr);
-}
-      /* experiment end */
+
    if (extractOrNo === 'extract') {
       const splittedText = splitText(text, /[\s’']+/);
       const textNoPunctuation = deletePunctuation(splittedText);
@@ -55,7 +48,19 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
       }
     const occurrencyListArray = createOccurrenciesList(prohibitedWordsBan);
     const minimizedOccurrenciesList = limitOccurrenciesTo(limitOccurrenciesNr, occurrencyListArray);
-    const sortedList = sortOccurrenciesListByNr(minimizedOccurrenciesList)
+
+      
+   let multipleWordTerms: [string, number][] = [];
+   switch (language) {
+      case 'English':
+         multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr)
+         break;
+      default:  multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr);
+   }
+   const oneWordTermsPlusMultiple = multipleWordTerms.concat(minimizedOccurrenciesList);
+
+    const sortedList = sortOccurrenciesListByNr(oneWordTermsPlusMultiple)
+    console.log(sortedList)
     createNewScreen() 
     showOccurrencyArray(sortedList, text);
     const termsCollection = document.getElementsByClassName('term');

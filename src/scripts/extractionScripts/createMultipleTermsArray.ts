@@ -7,6 +7,31 @@ import { deleteProhibitedExpressions } from './deleteProhibitedExpressions';
 import { deleteNumbers } from './deleteNumbers';
 import { deleteOneLetterWords } from './deleteOneLetterWords';
 
+ 
+function createRedundantExpressions (expressionArrayWithOccurrencies: [string, number][]) {
+    const redundantExpressions: string[] = [];
+    for (let expression of expressionArrayWithOccurrencies) {
+        for (let expression2 of expressionArrayWithOccurrencies) {
+            if (expression[0] !== expression2[0]) {
+                if (expression[1] === expression2[1]) {
+                    if (expression[0].includes(expression2[0])) {
+                        redundantExpressions.push(expression2[0])
+                    }
+                }
+            }
+        }
+    } return redundantExpressions
+}
+
+    function deleteRedundantExpressions (expressionArrayWithOccurrencies: [string, number][], redundandExp: string[]) {
+        const arrayNoRedundant: [string, number][] = [];
+        for (let expresssion of expressionArrayWithOccurrencies) {
+            if (!redundandExp.includes(expresssion[0])) {
+                arrayNoRedundant.push(expresssion);
+            }
+        } return arrayNoRedundant;
+    }
+
 export function createMultipleTermsArray (langProhibitedWordsArray: string[], minNrOccur: number) {
     const prohibitedWords = langProhibitedWordsArray;
     let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value;
@@ -48,7 +73,7 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
         splittedText = deleteNumbers(splittedText);
         splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
-            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}  ${splittedText[i+3]}`
+            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]}`
             oneAndNext3.push(expression);
         } return oneAndNext3;
     }
@@ -63,7 +88,7 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
         splittedText = deleteNumbers(splittedText);
         splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
-            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}  ${splittedText[i+3]} ${splittedText[i+4]}`
+            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]}`
             oneAndNext4.push(expression);
         } return oneAndNext4;
     }
@@ -78,7 +103,7 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
         splittedText = deleteNumbers(splittedText);
         splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
-            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}  ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]}`
+            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]}`
             oneAndNext5.push(expression);
         } return oneAndNext5;
     }
@@ -93,7 +118,7 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
         splittedText = deleteNumbers(splittedText);
         splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
-            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}  ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]}`
+            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]}`
             oneAndNext6.push(expression);
         } return oneAndNext6;
     }
@@ -108,7 +133,7 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
         splittedText = deleteNumbers(splittedText);
         splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
-            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}  ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]}`
+            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]}`
             oneAndNext7.push(expression);
         } return oneAndNext7;
     }
@@ -124,7 +149,7 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
         splittedText = deleteNumbers(splittedText);
         splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
-            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}  ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]} ${splittedText[i+8]}`
+            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]} ${splittedText[i+8]}`
             oneAndNext8.push(expression);
         } return oneAndNext8;
     }
@@ -139,7 +164,7 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
         splittedText = deleteNumbers(splittedText);
         splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
-            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}  ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]} ${splittedText[i+8]} ${splittedText[i+9]}`
+            let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]} ${splittedText[i+8]} ${splittedText[i+9]}`
             oneAndNext9.push(expression);
         } return oneAndNext9;
     }
@@ -153,12 +178,9 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
     const wordAllOccurrencies = createOccurrenciesList(allWordLists);
     const minimizedWordAllOccurrencies = limitOccurrenciesTo(minNrOccur, wordAllOccurrencies);
     const minWordAllOccurrenciesSorted = sortOccurrenciesListByNr(minimizedWordAllOccurrencies);
- 
-    function deleteDoublets (expressionArrayWithOccurrencies: [string, number][]) {
-    const expressionsNoDoublets: string[] = [];
-    for (let expression of expressionArrayWithOccurrencies) {
 
-    } 
-}
+    const redundantExpressions = createRedundantExpressions(minWordAllOccurrenciesSorted);
+    const minWordSortedNoRedundant = deleteRedundantExpressions(minWordAllOccurrenciesSorted, redundantExpressions)
+    return minWordSortedNoRedundant;
 }
 
