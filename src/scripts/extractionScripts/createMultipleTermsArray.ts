@@ -118,11 +118,35 @@ export function createMultipleTermsArray () {
     const minimizedWord10Occurrencies = limitOccurrenciesTo(2, word10Occurrencies);
     const minWord10OccurrenciesSorted = sortOccurrenciesListByNr(minimizedWord10Occurrencies);
     
+
+  /* start experiment  */
+
+ function deleteProhibitedExpressions (splittedText: string[], prohibitedWordsArray: string[]): string[] {
+    const noProhibitedWordsArray = [];
+    for (let exp of splittedText) {
+        const splittedExp: string[] = exp.split(' ');
+        const firstWordUpperCase = splittedExp[0].toUpperCase();
+        const fistWordLowerCase = splittedExp[0].toLowerCase();
+        const firstWordCapitalized = splittedExp[0].charAt(0).toUpperCase() + splittedExp[0].slice(1, (splittedExp[0].length));
+        const lastWordUpperCase = splittedExp[splittedExp.length - 1].toUpperCase();
+        const lastWordLowerCase = splittedExp[splittedExp.length - 1].toLowerCase();
+        const lastWordCapitalized = splittedExp[splittedExp.length - 1].charAt(0).toUpperCase() + splittedExp[splittedExp.length - 1].slice(1, (splittedExp[splittedExp.length - 1].length));
+        if (!(prohibitedWordsArray.includes(firstWordUpperCase) || prohibitedWordsArray.includes(fistWordLowerCase) || prohibitedWordsArray.includes(firstWordCapitalized) || prohibitedWordsArray.includes(lastWordCapitalized) || prohibitedWordsArray.includes(lastWordLowerCase) || prohibitedWordsArray.includes(lastWordUpperCase) || prohibitedWordsArray.includes(lastWordUpperCase))) {
+            noProhibitedWordsArray.push(exp)
+        }
+    } return noProhibitedWordsArray
+}
+
+const wordParisNoArticles = deleteProhibitedExpressions(wordPairs, ['a', 'the', 'an', 'if', 'to', 'be']); 
+
+  /* end experiment  */
+
     const allWordLists = wordPairs.concat(word3, word4, word5, word6, word7, word8, word9, word10)
     const wordAllOccurrencies = createOccurrenciesList(allWordLists);
     const minimizedWordAllOccurrencies = limitOccurrenciesTo(3, wordAllOccurrencies);
     const minWordAllOccurrenciesSorted = sortOccurrenciesListByNr(minimizedWordAllOccurrencies);
+ 
 
-    console.log(minimizedWordAllOccurrencies)
+    console.log(allWordLists)
 }
 
