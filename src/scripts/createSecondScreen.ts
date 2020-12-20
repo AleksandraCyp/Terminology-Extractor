@@ -20,13 +20,12 @@ import { assingTermIndex } from './secondPageCreationScripts/assignTermIndex';
 import { createGlossaryFile } from './secondPageCreationScripts/createGlossaryFile';
 import { changeParallelTextArea } from './secondPageCreationScripts/changeParallelTextArea';
 import { showNextLastExample } from './secondPageCreationScripts/showNextLastExample';
-import { showNextLastSingleItem } from './secondPageCreationScripts/showNextLastSingleItem';
 import { EnglishProhibitedExpressionWords } from './extractionScripts/EnglishProhibitedExpressionWords';
 import { createRedundantExpressions } from './extractionScripts/createRedundantExpressions';
 import { deleteRedundantExpressions } from './extractionScripts/deleteRedundantExpressions';
-import { deleteProhibitedExpressions } from './extractionScripts/deleteProhibitedExpressions';
+import { deleteTerm } from './secondPageCreationScripts/deleteTerm'
 
-export function createOneWordTermsArray (language: string, limitOccurrenciesNr: number, extractOrNo: 'extract' | 'notExtract') {
+export function createSecondScreen (language: string, limitOccurrenciesNr: number, extractOrNo: 'extract' | 'notExtract') {
    let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value; 
 
    if (extractOrNo === 'extract') {
@@ -65,7 +64,6 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
    const oneWordTermsPlusMultipleRedundant: [string, number][] = deleteRedundantExpressions(oneWordTermsPlusMultiple, oneWordTermsPlusMultipleRedundantWords)
 
     const sortedList = sortOccurrenciesListByNr(oneWordTermsPlusMultipleRedundant)
-    console.log(sortedList)
     createNewScreen() 
     showOccurrencyArray(sortedList, text);
     const termsCollection = document.getElementsByClassName('term');
@@ -98,7 +96,7 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
    const occurrencies = document.querySelector('#occurrenciesListNoTranslation');
    const newTermListItem = document.createElement('li');
    newTermListItem.setAttribute('class', 'term')
-   newTermListItem.innerHTML = '<input type="text" class="originalWord"><input type="text" class="translatedWord"><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class="exampleMain"><span><input type="text"></span></p><p class="exampleArrow exampleArrowRight">>></p></div>'
+   newTermListItem.innerHTML = '<input type="text" class="originalWord"><input type="text" class="translatedWord"><div class="deleteTerm"><span>X</span></div><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class="exampleMain"><span><input type="text"></span></p><p class="exampleArrow exampleArrowRight">>></p></div>'
    occurrencies!.insertBefore(newTermListItem, occurrencies!.firstElementChild);
    changeAdditionalScreen(whichAdditionalScreens, examples);
    const termsCollection = document.getElementsByClassName('term');
@@ -109,7 +107,22 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
          showNextLastExample(liTermsCollection, text)
       })
    })
+   const deleteTermXs = document.getElementsByClassName('deleteTerm');
+
+   [...deleteTermXs].forEach((deleteTermX) => {
+      deleteTermX.addEventListener('click', () => {
+         deleteTerm(deleteTermX.parentElement!)
+      })
+   } )
    })
+
+   const deleteTermXs = document.getElementsByClassName('deleteTerm');
+
+   [...deleteTermXs].forEach((deleteTermX) => {
+      deleteTermX.addEventListener('click', () => {
+         deleteTerm(deleteTermX.parentElement!)
+      })
+   } )
 
    const parallelTexButton = document.querySelector('#acceptParallelTextButton');
    parallelTexButton!.addEventListener('click', changeParallelTextArea);

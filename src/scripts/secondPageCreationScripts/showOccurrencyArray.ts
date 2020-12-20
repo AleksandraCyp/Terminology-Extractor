@@ -8,6 +8,6 @@ export function showOccurrencyArray (occurrencyArray: [string, number][], text: 
              examplesArray.push(phrase.replaceAll(word[0], `<span class="emphasizedWord">${word[0]}</span>` ) + ".");
           }
        } 
-       showList!.innerHTML += `<li class='term'><input type='text' value='${word[0]}' class='originalWord'><input type='text' class='translatedWord'><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class='exampleMain'><span>${examplesArray[0]}</span></p><p class="exampleArrow exampleArrowRight">>></p></div></li>`  
+       showList!.innerHTML += `<li class='term'><input type='text' value='${word[0]}' class='originalWord'><input type='text' class='translatedWord'><div class="deleteTerm"><span>X</span></div><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class='exampleMain'><span>${examplesArray[0]}</span></p><p class="exampleArrow exampleArrowRight">>></p></div></li>`  
       } 
   }

@@ -1,5 +1,5 @@
 import { getExtractionCheckboxValue } from './getExtractionCheckboxValue'
-import { createOneWordTermsArray } from './createOneWordTermsArray'
+import { createSecondScreen } from './createSecondScreen'
 
 const button = document.querySelector('#createListButton') as HTMLButtonElement;
 const extractionCheckbox = (document.querySelector('#autoextractionCheckbox') as any);
@@ -19,7 +19,7 @@ extractionCheckbox.addEventListener('input', () => {
 );
 
  button.addEventListener('click', () => {
-   createOneWordTermsArray(selectLanguage.value, minimalNubmerValue, extractionCheckboxValue) 
+   createSecondScreen(selectLanguage.value, minimalNubmerValue, extractionCheckboxValue) 
  })
 
 

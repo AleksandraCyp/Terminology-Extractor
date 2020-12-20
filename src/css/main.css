@@ -53,7 +53,7 @@
 
 .secondScreenApp {
     display: grid;
-    grid-template-columns: 500px 1fr;
+    grid-template-columns: 535px 1fr;
 }
 
 #textShowScreen {
@@ -94,12 +94,29 @@
 .occurrenciesList li {
     list-style: none;
     display: grid;
-    grid-template-columns: 250px 250px 1fr;
+    grid-template-columns: 250px 250px 35px 1fr;
     grid-auto-rows: minmax(60px, auto);
 }
 
+.deleteTerm {
+    display: grid;
+    align-self: stretch;
+    border-bottom: 1px solid rgb(100, 99, 99);
+    border-top: 1px solid rgb(100, 99, 99);
+    background-color: crimson;
+    color: white;
+    user-select: none;
+    cursor: pointer;
+}
+
+.deleteTerm span {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
 .example {
-    border: 1px solid gray;
+    border: 1px solid rgb(100, 99, 99);
     display: none;
     grid-template-columns: 30px 1fr 30px;
     align-content: stretch;
