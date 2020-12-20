@@ -21,9 +21,18 @@ import { createGlossaryFile } from './secondPageCreationScripts/createGlossaryFi
 import { changeParallelTextArea } from './secondPageCreationScripts/changeParallelTextArea';
 import { showNextLastExample } from './secondPageCreationScripts/showNextLastExample';
 import { showNextLastSingleItem } from './secondPageCreationScripts/showNextLastSingleItem'
+import { EnglishProhibitedExpressionWords } from './extractionScripts/EnglishProhibitedExpressionWords'
 
 export function createOneWordTermsArray (language: string, limitOccurrenciesNr: number, extractOrNo: 'extract' | 'notExtract') {
    let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value; 
+   /* experiment start */
+   switch (language) {
+      case 'English':
+         createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr)
+         break;
+      default: createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr);
+}
+      /* experiment end */
    if (extractOrNo === 'extract') {
       const splittedText = splitText(text, /[\s’']+/);
       const textNoPunctuation = deletePunctuation(splittedText);
@@ -59,6 +68,12 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
    
    const liTermsCollection = document.getElementsByTagName('li');
    showNextLastExample(liTermsCollection, text);
+   const originalWordInputs = document.getElementsByClassName('originalWord');
+   [...originalWordInputs].forEach((input) => {
+      input.addEventListener('change', () => {
+         showNextLastExample(liTermsCollection, text)
+      })
+   })
 
    const whichAdditionalScreens = (document.querySelector("#whichAdditionalScreens")) as HTMLInputElement;
    const examples = (document.getElementsByClassName('example')) as HTMLCollection;
@@ -78,6 +93,12 @@ export function createOneWordTermsArray (language: string, limitOccurrenciesNr: 
    changeAdditionalScreen(whichAdditionalScreens, examples);
    const termsCollection = document.getElementsByClassName('term');
    assingTermIndex(termsCollection);
+   const originalWordInputs = document.getElementsByClassName('originalWord');
+   [...originalWordInputs].forEach((input) => {
+      input.addEventListener('change', () => {
+         showNextLastExample(liTermsCollection, text)
+      })
+   })
    })
 
    const parallelTexButton = document.querySelector('#acceptParallelTextButton');
