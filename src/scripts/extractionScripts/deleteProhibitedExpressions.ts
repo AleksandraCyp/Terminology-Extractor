@@ -2,7 +2,11 @@ export function deleteProhibitedExpressions (splittedText: string[], prohibitedW
     const noProhibitedWordsArray = [];
     for (let exp of splittedText) {
         const splittedExp: string[] = exp.split(' ');
-        const firstWordUpperCase = splittedExp[0].toUpperCase();
+        if (splittedExp[0].length > 1 && splittedExp[splittedExp.length - 1].length > 1) {
+            let expNumberFirst = +splittedExp[0];
+            let expNumberLast = +splittedExp[splittedExp.length - 1];
+            if (splittedExp[0] !== expNumberFirst.toString() && splittedExp[splittedExp.length - 1] !== expNumberLast.toString()) {
+                    const firstWordUpperCase = splittedExp[0].toUpperCase();
         const fistWordLowerCase = splittedExp[0].toLowerCase();
         const firstWordCapitalized = splittedExp[0].charAt(0).toUpperCase() + splittedExp[0].slice(1, (splittedExp[0].length));
         const lastWordUpperCase = splittedExp[splittedExp.length - 1].toUpperCase();
@@ -11,6 +15,10 @@ export function deleteProhibitedExpressions (splittedText: string[], prohibitedW
         if (!(prohibitedWordsArray.includes(firstWordUpperCase) || prohibitedWordsArray.includes(fistWordLowerCase) || prohibitedWordsArray.includes(firstWordCapitalized) || prohibitedWordsArray.includes(lastWordCapitalized) || prohibitedWordsArray.includes(lastWordLowerCase) || prohibitedWordsArray.includes(lastWordUpperCase) || prohibitedWordsArray.includes(lastWordUpperCase))) {
             noProhibitedWordsArray.push(exp)
         }
+        }
+        }
+       
+
     } return noProhibitedWordsArray
 }
 

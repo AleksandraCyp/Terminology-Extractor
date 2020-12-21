@@ -9,16 +9,24 @@ import { deleteOneLetterWords } from './deleteOneLetterWords';
 import { createRedundantExpressions } from './createRedundantExpressions';
 import { deleteRedundantExpressions } from './deleteRedundantExpressions';
 
+function deletePunctuationMultiple (splittedWordsArray: string[]): string[] {
+    const punctuacionlessText = [];
+    for (let word of splittedWordsArray) {
+        const punctuationless = word.replace(/[\.,\/#!\[\]\^&\*;:=\_`~@\?><\[\]\+]/g, '');
+        const finalWord = punctuationless.replace(/\s{2,}/g," ");
+        punctuacionlessText.push(finalWord);
+    } return punctuacionlessText
+}
+
 export function createMultipleTermsArray (langProhibitedWordsArray: string[], minNrOccur: number) {
     const prohibitedWords = langProhibitedWordsArray;
     let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value;
-    const splittedText = splitText(text, /[\s’']+/);
-    const textNoPunctuation = deletePunctuation(splittedText);
-
+    const splittedText = splitText(text, /[\s’]+/);
+  
+    const textNoPunctuation = deletePunctuationMultiple(splittedText);
+    
     function createWordPairs (splittedText: string[]) {
         const oneAndNextArray: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]}`
             oneAndNextArray.push(expression);
@@ -32,8 +40,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
 
     function createWord3 (splittedText: string[]) {
         const oneAndNext2: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]}`
             oneAndNext2.push(expression);
@@ -47,8 +53,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
 
     function createWord4 (splittedText: string[]) {
         const oneAndNext3: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]}`
             oneAndNext3.push(expression);
@@ -62,8 +66,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
 
     function createWord5 (splittedText: string[]) {
         const oneAndNext4: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]}`
             oneAndNext4.push(expression);
@@ -77,8 +79,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
 
     function createWord6 (splittedText: string[]) {
         const oneAndNext5: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]}`
             oneAndNext5.push(expression);
@@ -92,8 +92,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
 
     function createWord7 (splittedText: string[]) {
         const oneAndNext6: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]}`
             oneAndNext6.push(expression);
@@ -107,8 +105,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
 
     function createWord8 (splittedText: string[]) {
         const oneAndNext7: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]}`
             oneAndNext7.push(expression);
@@ -123,8 +119,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
     
     function createWord9 (splittedText: string[]) {
         const oneAndNext8: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]} ${splittedText[i+8]}`
             oneAndNext8.push(expression);
@@ -138,8 +132,6 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
 
     function createWord10 (splittedText: string[]) {
         const oneAndNext9: string[] = [];
-        splittedText = deleteNumbers(splittedText);
-        splittedText = deleteOneLetterWords(splittedText);
         for (let i = 0; i < splittedText.length; i++) {
             let expression = `${splittedText[i]} ${splittedText[i+1]} ${splittedText[i+2]} ${splittedText[i+3]} ${splittedText[i+4]} ${splittedText[i+5]} ${splittedText[i+6]} ${splittedText[i+7]} ${splittedText[i+8]} ${splittedText[i+9]}`
             oneAndNext9.push(expression);
