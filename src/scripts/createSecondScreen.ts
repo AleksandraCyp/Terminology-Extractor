@@ -59,16 +59,24 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
          break;
       default:  multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr);
    }
+   /*
    const oneWordTermsPlusMultiple = multipleWordTerms.concat(minimizedOccurrenciesList);
    const oneWordTermsPlusMultipleRedundantWords = createRedundantExpressions(oneWordTermsPlusMultiple);
    const oneWordTermsPlusMultipleRedundant: [string, number][] = deleteRedundantExpressions(oneWordTermsPlusMultiple, oneWordTermsPlusMultipleRedundantWords)
+*/
+   const minimizedOccurrenciesRedundantWords = createRedundantExpressions(minimizedOccurrenciesList);
+   const minimizedOccurrenciesRedundantDel = deleteRedundantExpressions(minimizedOccurrenciesList, minimizedOccurrenciesRedundantWords);
+   const multipleRedundantWords = createRedundantExpressions(multipleWordTerms);
+   const multipleRedundantWordsDel: [string, number][] = deleteRedundantExpressions(multipleWordTerms, multipleRedundantWords);
+   const sortedListOneWord = sortOccurrenciesListByNr(minimizedOccurrenciesRedundantDel);
+   const sortedListMultiple = sortOccurrenciesListByNr(multipleRedundantWordsDel);
 
-    const sortedList = sortOccurrenciesListByNr(oneWordTermsPlusMultipleRedundant)
+   const multiplePlusOneWordTerms = sortedListMultiple.concat(sortedListOneWord);
     createNewScreen() 
-    showOccurrencyArray(sortedList, text);
+    showOccurrencyArray(multiplePlusOneWordTerms, text);
     const termsCollection = document.getElementsByClassName('term');
     assingTermIndex(termsCollection);
-    showTextScreen(text, sortedList);
+    showTextScreen(text, multiplePlusOneWordTerms);
    } else if (extractOrNo === 'notExtract') {
       createNewScreen();
       showTextScreen(text, []);
