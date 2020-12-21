@@ -16,7 +16,7 @@ export function showNextLastExample (liCollection: HTMLCollection, text: string)
             let currentExample = examplesArray.indexOf(example.innerHTML); 
             if (currentExample < 0) {
             examplesArray[0] ? example.innerHTML = examplesArray[0] : example.innerHTML = '<input type="text">';
-            currentExample += 0; 
+            currentExample += 1; 
             } 
              nextArrow!.addEventListener('click', () => {
              if (examplesArray.length > 1) {
