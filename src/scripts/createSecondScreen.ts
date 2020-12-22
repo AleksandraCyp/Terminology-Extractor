@@ -72,11 +72,14 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
    const sortedListMultiple = sortOccurrenciesListByNr(multipleRedundantWordsDel);
 
    const multiplePlusOneWordTerms = sortedListMultiple.concat(sortedListOneWord);
+   const multiplePlusOneWordRedundant = createRedundantExpressions(multiplePlusOneWordTerms);
+   const multiplePlusOneWordRedundantDel = deleteRedundantExpressions(multiplePlusOneWordTerms, multiplePlusOneWordRedundant)
+
     createNewScreen() 
-    showOccurrencyArray(multiplePlusOneWordTerms, text);
+    showOccurrencyArray(multiplePlusOneWordRedundantDel, text);
     const termsCollection = document.getElementsByClassName('term');
     assingTermIndex(termsCollection);
-    showTextScreen(text, multiplePlusOneWordTerms);
+    showTextScreen(text, multiplePlusOneWordRedundantDel);
    } else if (extractOrNo === 'notExtract') {
       createNewScreen();
       showTextScreen(text, []);

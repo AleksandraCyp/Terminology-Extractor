@@ -21,7 +21,7 @@ function deletePunctuationMultiple (splittedWordsArray: string[]): string[] {
 export function createMultipleTermsArray (langProhibitedWordsArray: string[], minNrOccur: number) {
     const prohibitedWords = langProhibitedWordsArray;
     let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value;
-    const splittedText = splitText(text, /[\s’]+/);
+    const splittedText = splitText(text, /[\s]+/);
   
     const textNoPunctuation = deletePunctuationMultiple(splittedText);
     
