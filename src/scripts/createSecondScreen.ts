@@ -3,8 +3,9 @@ import { deletePunctuation } from './extractionScripts/deletePunctuation';
 import { deleteOneLetterWords } from './extractionScripts/deleteOneLetterWords';
 import { deleteNumbers } from './extractionScripts/deleteNumbers'
 import { deleteDoublets } from './extractionScripts/deleteDoublets'
-import { deleteEnglishPlurals } from './extractionScripts/deletePlurals'
-import { prohibitedEnglishWords } from './extractionScripts/EnglishProhibitedWords'
+import { deleteEnglishPlurals } from './extractionScripts/English/deleteEnglishPlurals'
+import { prohibitedEnglishWords } from './extractionScripts/English/EnglishProhibitedWords';
+import { prohibitedItalianWords } from './extractionScripts/Italian/ItalianProhibitedWords';
 import { deleteProhibitedWords } from "./extractionScripts/deleteProhibitedWords"
 import { createOccurrenciesList } from './extractionScripts/createOccurrenciesList';
 import { limitOccurrenciesTo } from './extractionScripts/limitOccurrenciesTo';
@@ -20,7 +21,8 @@ import { assingTermIndex } from './secondPageCreationScripts/assignTermIndex';
 import { createGlossaryFile } from './secondPageCreationScripts/createGlossaryFile';
 import { changeParallelTextArea } from './secondPageCreationScripts/changeParallelTextArea';
 import { showNextLastExample } from './secondPageCreationScripts/showNextLastExample';
-import { EnglishProhibitedExpressionWords } from './extractionScripts/EnglishProhibitedExpressionWords';
+import { EnglishProhibitedExpressionWords } from './extractionScripts/English/EnglishProhibitedExpressionWords';
+import { ItalianProhibitedExpressionWords } from './extractionScripts/Italian/ItalianProhibitedExpressionWords';
 import { createRedundantExpressions } from './extractionScripts/createRedundantExpressions';
 import { deleteRedundantExpressions } from './extractionScripts/deleteRedundantExpressions';
 import { deleteTerm } from './secondPageCreationScripts/deleteTerm'
@@ -39,6 +41,9 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
          case 'English':
             textNoPlurals = deleteEnglishPlurals(textNoDoublets);
             break;
+         case 'Italian':
+            textNoPlurals = textNoDoublets;
+            break;
          default: textNoPlurals = deleteEnglishPlurals(textNoDoublets);
    }
       let prohibitedWordsBan: string[];
@@ -46,6 +51,9 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
          case 'English':
              prohibitedWordsBan = deleteProhibitedWords(textNoPlurals, prohibitedEnglishWords);
              break;
+         case 'Italian':
+            prohibitedWordsBan = deleteProhibitedWords(textNoPlurals, prohibitedItalianWords);
+            break;
          default: prohibitedWordsBan = deleteProhibitedWords(textNoPlurals, prohibitedEnglishWords);
       }
     const occurrencyListArray = createOccurrenciesList(prohibitedWordsBan);
@@ -56,6 +64,9 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
    switch (language) {
       case 'English':
          multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr)
+         break;
+      case 'Italian':
+         multipleWordTerms = createMultipleTermsArray(ItalianProhibitedExpressionWords, limitOccurrenciesNr)
          break;
       default:  multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr);
    }

@@ -1,0 +1,3 @@
+import { prohibitedEnglishVerbs, prohibitedEnglishPronouns, prohibitedEnglishConjuctions, prohibitedEnglishNumbers, otherEnglishWords, prohibitedRomanNumbers, measurementUnitsAndCurrencies } from './EnglishProhibitedWords';
+
+export const EnglishProhibitedExpressionWords: string[] = prohibitedEnglishVerbs.concat(prohibitedEnglishPronouns, prohibitedEnglishConjuctions, prohibitedEnglishNumbers, otherEnglishWords, prohibitedRomanNumbers, measurementUnitsAndCurrencies);

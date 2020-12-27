@@ -9,7 +9,14 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "italian-adjectives": "^3.1.1",
+    "italian-adjectives-dict": "^1.1.1",
+    "italian-verbs": "^3.1.1",
+    "italian-verbs-dict": "^1.1.1",
+    "italian-words": "^3.1.1",
+    "italian-words-dict": "^1.1.1"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.19",
     "@types/node": "^14.14.13",
