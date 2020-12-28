@@ -15,7 +15,8 @@
     "italian-verbs": "^3.1.1",
     "italian-verbs-dict": "^1.1.1",
     "italian-words": "^3.1.1",
-    "italian-words-dict": "^1.1.1"
+    "italian-words-dict": "^1.1.1",
+    "node-polyfill-webpack-plugin": "^1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",

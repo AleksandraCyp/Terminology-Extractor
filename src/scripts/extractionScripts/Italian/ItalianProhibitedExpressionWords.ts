@@ -1,4 +1,4 @@
-import { prohibitedItalianVerbs, prohibitedItalianPronouns, prohititedItalianConjunctions, prohibitedItalianNumbers, measurementUnitsAndCurrencies, prohibitedItalianPrepositions, prohibitedItalianArticles } from './ItalianProhibitedWords';
+import { prohibitedItalianVerbs, prohibitedItalianPronouns, prohititedItalianConjunctions, prohibitedItalianNumbers, measurementUnitsAndCurrencies, prohibitedItalianPrepositions, prohibitedItalianArticles, otherProhibitedItalianWords } from './ItalianProhibitedWords';
 import { prohibitedRomanNumbers } from '../English/EnglishProhibitedWords';
 
-export const ItalianProhibitedExpressionWords: string[] = prohibitedItalianVerbs.concat(prohibitedItalianPronouns, prohititedItalianConjunctions, prohibitedItalianNumbers, prohibitedItalianPrepositions, prohibitedItalianArticles, prohibitedRomanNumbers, measurementUnitsAndCurrencies);
+export const ItalianProhibitedExpressionWords: string[] = prohibitedItalianVerbs.concat(prohibitedItalianPronouns, prohititedItalianConjunctions, prohibitedItalianNumbers, prohibitedItalianPrepositions, prohibitedItalianArticles, prohibitedRomanNumbers, otherProhibitedItalianWords, measurementUnitsAndCurrencies);

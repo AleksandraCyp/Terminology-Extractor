@@ -1,5 +1,5 @@
 import { getExtractionCheckboxValue } from './getExtractionCheckboxValue'
-import { createSecondScreen } from './createSecondScreen'
+import { createSecondScreen } from './createSecondScreen';
 
 const button = document.querySelector('#createListButton') as HTMLButtonElement;
 const extractionCheckbox = (document.querySelector('#autoextractionCheckbox') as any);

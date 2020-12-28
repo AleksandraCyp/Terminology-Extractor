@@ -18,7 +18,24 @@ function deletePunctuationMultiple (splittedWordsArray: string[]): string[] {
     } return punctuacionlessText
 }
 
-export function createMultipleTermsArray (langProhibitedWordsArray: string[], minNrOccur: number) {
+function deleteItalianExpressionsStartingWithPreposition (termsArray: [string, number][]) {
+    const finalArray: [string, number][] = [];
+    for (let term of termsArray) {
+        if (term[0].substr(0, 5) !== "dell'" && term[0].substr(0, 5) !== "dall'" && term[0].substr(0, 5) !== "sull'" && term[0].substr(0, 5) !== "nell'" && term[0].substr(0, 5) !== "bell'" && term[0].substr(0, 4) !== "all'" && term[0].substr(0, 6) !== "quest'" && term[0].substr(0, 6) !== "quell'" && term[0].substr(0, 2) !== "l'") {
+            finalArray.push(term)
+        } else if (term[0].substr(0, 5) === "dell'" || term[0].substr(0, 5) === "dall'" || term[0].substr(0, 5) === "sull'" || term[0].substr(0, 5) === "nell'" || term[0].substr(0, 5) === "bell'") {
+            finalArray.push([term[0].substr(5, term[0].length - 1), term[1]]);
+        } else if (term[0].substr(0, 4) === "all'") {
+            finalArray.push([term[0].substr(4, term[0].length - 1), term[1]]);
+        } else if (term[0].substr(0, 6) === "quest'" || term[0].substr(0, 6) === "quell'") {
+            finalArray.push([term[0].substr(6, term[0].length - 1), term[1]]);
+        } else if (term[0].substr(0, 2) === "l'") {
+            finalArray.push([term[0].substr(2, term[0].length - 1), term[1]]);
+        }
+    } return finalArray;
+}
+
+export function createMultipleTermsArray (langProhibitedWordsArray: string[], minNrOccur: number, language: string) {
     const prohibitedWords = langProhibitedWordsArray;
     let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value;
     const splittedText = splitText(text, /[\s]+/);
@@ -143,13 +160,28 @@ export function createMultipleTermsArray (langProhibitedWordsArray: string[], mi
     const minimizedWord10Occurrencies = limitOccurrenciesTo(minNrOccur, word10Occurrencies);
     const minWord10OccurrenciesSorted = sortOccurrenciesListByNr(minimizedWord10Occurrencies);
 
-    const allWordLists = wordPairsNoProhibitedWords.concat(word3NoProhibitedWords, word4NoProhibitedWords, word5NoProhibitedWords, word6NoProhibitedWords, word7NoProhibitedWords, word8NoProhibitedWords, word9NoProhibitedWords, word10NoProhibitedWords)
+    const allWordLists = wordPairsNoProhibitedWords.concat(word3NoProhibitedWords, word4NoProhibitedWords, word5NoProhibitedWords, word6NoProhibitedWords, word7NoProhibitedWords, word8NoProhibitedWords, word9NoProhibitedWords, word10NoProhibitedWords);
     const wordAllOccurrencies = createOccurrenciesList(allWordLists);
-    const minimizedWordAllOccurrencies = limitOccurrenciesTo(minNrOccur, wordAllOccurrencies);
+    let occurrenciesListSpecialLangFeatures: [string, number][];
+
+    switch (language) {
+        case 'English':
+           occurrenciesListSpecialLangFeatures = wordAllOccurrencies;
+           break;
+        case 'Italian':
+            let occurrenciesListNoInitialPrepositions: [string, number][];
+            occurrenciesListNoInitialPrepositions = deleteItalianExpressionsStartingWithPreposition(wordAllOccurrencies);
+            occurrenciesListSpecialLangFeatures = occurrenciesListNoInitialPrepositions;
+           break;
+        default:  occurrenciesListSpecialLangFeatures = wordAllOccurrencies;
+     }
+
+    const minimizedWordAllOccurrencies = limitOccurrenciesTo(minNrOccur, occurrenciesListSpecialLangFeatures);
     const minWordAllOccurrenciesSorted = sortOccurrenciesListByNr(minimizedWordAllOccurrencies);
 
     const redundantExpressions = createRedundantExpressions(minWordAllOccurrenciesSorted);
-    const minWordSortedNoRedundant = deleteRedundantExpressions(minWordAllOccurrenciesSorted, redundantExpressions)
+    const minWordSortedNoRedundant = deleteRedundantExpressions(minWordAllOccurrenciesSorted, redundantExpressions);
+    console.log(minWordSortedNoRedundant)
     return minWordSortedNoRedundant;
 }
 

@@ -1,9 +1,10 @@
-import { splitText } from './extractionScripts/splitText'
+import { splitText } from './extractionScripts/splitText';
 import { deletePunctuation } from './extractionScripts/deletePunctuation';
 import { deleteOneLetterWords } from './extractionScripts/deleteOneLetterWords';
-import { deleteNumbers } from './extractionScripts/deleteNumbers'
-import { deleteDoublets } from './extractionScripts/deleteDoublets'
-import { deleteEnglishPlurals } from './extractionScripts/English/deleteEnglishPlurals'
+import { deleteNumbers } from './extractionScripts/deleteNumbers';
+import { deleteDoublets } from './extractionScripts/deleteDoublets';
+import { deleteEnglishPlurals } from './extractionScripts/English/deleteEnglishPlurals';
+import { deleteItalianPlurals } from './extractionScripts/Italian/deleteItalianPlurals';
 import { prohibitedEnglishWords } from './extractionScripts/English/EnglishProhibitedWords';
 import { prohibitedItalianWords } from './extractionScripts/Italian/ItalianProhibitedWords';
 import { deleteProhibitedWords } from "./extractionScripts/deleteProhibitedWords"
@@ -42,7 +43,7 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
             textNoPlurals = deleteEnglishPlurals(textNoDoublets);
             break;
          case 'Italian':
-            textNoPlurals = textNoDoublets;
+            textNoPlurals = deleteItalianPlurals(textNoDoublets);
             break;
          default: textNoPlurals = deleteEnglishPlurals(textNoDoublets);
    }
@@ -63,31 +64,25 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
    let multipleWordTerms: [string, number][] = [];
    switch (language) {
       case 'English':
-         multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr)
+         multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr, language)
          break;
       case 'Italian':
-         multipleWordTerms = createMultipleTermsArray(ItalianProhibitedExpressionWords, limitOccurrenciesNr)
+         multipleWordTerms = createMultipleTermsArray(ItalianProhibitedExpressionWords, limitOccurrenciesNr, language)
          break;
-      default:  multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr);
+      default:  multipleWordTerms = createMultipleTermsArray(EnglishProhibitedExpressionWords, limitOccurrenciesNr, language);
    }
-   /*
-   const oneWordTermsPlusMultiple = multipleWordTerms.concat(minimizedOccurrenciesList);
-   const oneWordTermsPlusMultipleRedundantWords = createRedundantExpressions(oneWordTermsPlusMultiple);
-   const oneWordTermsPlusMultipleRedundant: [string, number][] = deleteRedundantExpressions(oneWordTermsPlusMultiple, oneWordTermsPlusMultipleRedundantWords)
-*/
+
    const minimizedOccurrenciesRedundantWords = createRedundantExpressions(minimizedOccurrenciesList);
    const minimizedOccurrenciesRedundantDel = deleteRedundantExpressions(minimizedOccurrenciesList, minimizedOccurrenciesRedundantWords);
-   const multipleRedundantWords = createRedundantExpressions(multipleWordTerms);
-   const multipleRedundantWordsDel: [string, number][] = deleteRedundantExpressions(multipleWordTerms, multipleRedundantWords);
    const sortedListOneWord = sortOccurrenciesListByNr(minimizedOccurrenciesRedundantDel);
-   const sortedListMultiple = sortOccurrenciesListByNr(multipleRedundantWordsDel);
+   const sortedListMultiple = sortOccurrenciesListByNr(multipleWordTerms);
 
    const multiplePlusOneWordTerms = sortedListMultiple.concat(sortedListOneWord);
    const multiplePlusOneWordRedundant = createRedundantExpressions(multiplePlusOneWordTerms);
    const multiplePlusOneWordRedundantDel = deleteRedundantExpressions(multiplePlusOneWordTerms, multiplePlusOneWordRedundant)
 
     createNewScreen() 
-    showOccurrencyArray(multiplePlusOneWordRedundantDel, text);
+    showOccurrencyArray(multiplePlusOneWordRedundantDel);
     const termsCollection = document.getElementsByClassName('term');
     assingTermIndex(termsCollection);
     showTextScreen(text, multiplePlusOneWordRedundantDel);
@@ -118,7 +113,7 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
    const occurrencies = document.querySelector('#occurrenciesListNoTranslation');
    const newTermListItem = document.createElement('li');
    newTermListItem.setAttribute('class', 'term')
-   newTermListItem.innerHTML = '<input type="text" class="originalWord"><input type="text" class="translatedWord"><div class="deleteTerm"><span>X</span></div><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class="exampleMain"><span><input type="text"></span></p><p class="exampleArrow exampleArrowRight">>></p></div>'
+   newTermListItem.innerHTML = '<input type="text" class="originalWord"><input type="text" class="translatedWord"><div class="deleteTerm"><span>x</span></div><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class="exampleMain"><span><input type="text"></span></p><p class="exampleArrow exampleArrowRight">>></p></div>'
    occurrencies!.insertBefore(newTermListItem, occurrencies!.firstElementChild);
    changeAdditionalScreen(whichAdditionalScreens, examples);
    const termsCollection = document.getElementsByClassName('term');
