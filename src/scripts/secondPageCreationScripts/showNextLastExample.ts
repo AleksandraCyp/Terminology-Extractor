@@ -1,4 +1,4 @@
-import { showParallelTextExamples } from './showParallelTextExamples'
+import { showParallelTextExamples } from './showParallelTextExamples';
 
 export function showNextLastExample (liCollection: HTMLCollection, text: string) {
     const textSplittedInPhrases: any = text.split(".");
