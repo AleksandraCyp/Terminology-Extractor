@@ -1,3 +1,5 @@
+import { showParallelTextExamples } from './showParallelTextExamples'
+
 export function showNextLastExample (liCollection: HTMLCollection, text: string) {
     const textSplittedInPhrases: any = text.split(".");
     for (let li of liCollection) { 
@@ -21,23 +23,35 @@ export function showNextLastExample (liCollection: HTMLCollection, text: string)
              nextArrow!.addEventListener('click', () => {
              if (examplesArray.length > 1) {
                   if (currentExample >= examplesArray.length - 1) {
+                  example.innerHTML = examplesArray[0];
+                  currentExample = 0;
+               } else {
+                  example.innerHTML = examplesArray[currentExample + 1] || examplesArray[0];  
+                  currentExample += 1;
+               } showParallelTextExamples();
+             } else if (examplesArray.length === 1)  {
                example.innerHTML = examplesArray[0];
                currentExample = 0;
-               } else {
-               example.innerHTML = examplesArray[currentExample + 1] || examplesArray[0];  
-               currentExample += 1;
-             }
+             } else if (examplesArray.length < 1)  {
+               example.innerHTML = '<input type="text">';
+               currentExample = -1;
              }
           });
              lastArrow!.addEventListener('click', () => {
              if (examplesArray.length > 1) {
                if (currentExample === 0) {
-               example.innerHTML = examplesArray[examplesArray.length - 1] || examplesArray[0];
-               currentExample = examplesArray.length - 1;
+                  example.innerHTML = examplesArray[examplesArray.length - 1] || examplesArray[0];
+                  currentExample = examplesArray.length - 1;
                } else {
-               example.innerHTML = examplesArray[currentExample - 1] || examplesArray[0]; 
-               currentExample -= 1; 
-             }  
+                  example.innerHTML = examplesArray[currentExample - 1] || examplesArray[0]; 
+                  currentExample -= 1; 
+               }  showParallelTextExamples();
+             } else  if (examplesArray.length === 1) {
+               example.innerHTML = examplesArray[0];
+               currentExample = 0;
+             } else if (examplesArray.length < 1)  {
+               example.innerHTML = '<input type="text">';
+               currentExample = -1;
              }
           })
       } 

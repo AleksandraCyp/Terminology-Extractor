@@ -11,7 +11,6 @@ import { deleteProhibitedWords } from "./extractionScripts/deleteProhibitedWords
 import { createOccurrenciesList } from './extractionScripts/createOccurrenciesList';
 import { limitOccurrenciesTo } from './extractionScripts/limitOccurrenciesTo';
 import { sortOccurrenciesListByNr } from './extractionScripts/sortOccurrenciesListByNr';
-import { sortOccurrenciesListByName } from './extractionScripts/sortOccurrenciesByName'; 
 import { createMultipleTermsArray } from './extractionScripts/createMultipleTermsArray';
 import { createNewScreen } from './secondPageCreationScripts/createNewScreen';
 import { showOccurrencyArray } from './secondPageCreationScripts/showOccurrencyArray';
@@ -26,7 +25,8 @@ import { EnglishProhibitedExpressionWords } from './extractionScripts/English/En
 import { ItalianProhibitedExpressionWords } from './extractionScripts/Italian/ItalianProhibitedExpressionWords';
 import { createRedundantExpressions } from './extractionScripts/createRedundantExpressions';
 import { deleteRedundantExpressions } from './extractionScripts/deleteRedundantExpressions';
-import { deleteTerm } from './secondPageCreationScripts/deleteTerm'
+import { deleteTerm } from './secondPageCreationScripts/deleteTerm';
+import { showParallelTextExamples } from './secondPageCreationScripts/showParallelTextExamples'
 
 export function createSecondScreen (language: string, limitOccurrenciesNr: number, extractOrNo: 'extract' | 'notExtract') {
    let text = (document.querySelector("#textImputArea") as HTMLTextAreaElement).value; 
@@ -96,15 +96,17 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
    const originalWordInputs = document.getElementsByClassName('originalWord');
    [...originalWordInputs].forEach((input) => {
       input.addEventListener('change', () => {
-         showNextLastExample(liTermsCollection, text)
+         showNextLastExample(liTermsCollection, text);
+         showParallelTextExamples();
       })
    })
 
    const whichAdditionalScreens = (document.querySelector("#whichAdditionalScreens")) as HTMLInputElement;
    const examples = (document.getElementsByClassName('example')) as HTMLCollection;
-   changeAdditionalScreen(whichAdditionalScreens, examples);
+   const parallelExamples = (document.getElementsByClassName('parallelExample')) as HTMLCollection;
+   changeAdditionalScreen(whichAdditionalScreens, examples, parallelExamples);
    whichAdditionalScreens.addEventListener('change', () => {
-      changeAdditionalScreen(whichAdditionalScreens, examples);
+      changeAdditionalScreen(whichAdditionalScreens, examples, parallelExamples);
    })
 
    const addButton = document.querySelector('#addNewTerm');
@@ -113,15 +115,16 @@ export function createSecondScreen (language: string, limitOccurrenciesNr: numbe
    const occurrencies = document.querySelector('#occurrenciesListNoTranslation');
    const newTermListItem = document.createElement('li');
    newTermListItem.setAttribute('class', 'term')
-   newTermListItem.innerHTML = '<input type="text" class="originalWord"><input type="text" class="translatedWord"><div class="deleteTerm"><span>x</span></div><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class="exampleMain"><span><input type="text"></span></p><p class="exampleArrow exampleArrowRight">>></p></div>'
+   newTermListItem.innerHTML = `<input type="text" class="originalWord"><input type="text" class="translatedWord"><div class="deleteTerm"><span>x</span></div><div class="example"><p class="exampleArrow exampleArrowLeft"><<</p><p class="exampleMain"><span><input type="text"></span></p><p class="exampleArrow exampleArrowRight">>></p></div><div class="parallelExample"><p class="parallelExampleArrow parallelExampleArrowLeft"><<</p><p class='parallelExampleMain'><span></span></p><p class="parallelExampleArrow parallelExampleArrowRight">>></p></div>`
    occurrencies!.insertBefore(newTermListItem, occurrencies!.firstElementChild);
-   changeAdditionalScreen(whichAdditionalScreens, examples);
+   changeAdditionalScreen(whichAdditionalScreens, examples, parallelExamples);
    const termsCollection = document.getElementsByClassName('term');
    assingTermIndex(termsCollection);
    const originalWordInputs = document.getElementsByClassName('originalWord');
    [...originalWordInputs].forEach((input) => {
       input.addEventListener('change', () => {
          showNextLastExample(liTermsCollection, text)
+         showParallelTextExamples();
       })
    })
    const deleteTermXs = document.getElementsByClassName('deleteTerm');

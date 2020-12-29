@@ -116,6 +116,7 @@
     justify-items: center;
 }
 
+.parallelExample,
 .example {
     border: 1px solid rgb(100, 99, 99);
     display: none;
@@ -125,21 +126,25 @@
     text-align: center;
 }
 
+.parallelExampleMain,
 .exampleMain {
     display: grid;
     align-content: center;
 }
 
+.parallelExampleMain > span,
 .exampleMain > span {
     padding: 5px;
 }
 
+.parallelExampleMain input,
 .exampleMain input {
     border: none;
     width: 100%;
     height: 100%;
 }
 
+.parallelExampleArrow,
 .exampleArrow {
     display: grid;
     align-content: stretch;
@@ -151,10 +156,12 @@
 
 }
 
+.parallelExampleArrowLeft,
 .exampleArrowLeft {
     border-right: 1px solid gray;
 }
 
+.parallelExampleArrowRight,
 .exampleArrowRight {
     border-left: 1px solid gray;
 }
