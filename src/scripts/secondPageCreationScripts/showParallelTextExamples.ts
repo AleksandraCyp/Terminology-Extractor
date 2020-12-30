@@ -6,9 +6,11 @@ export function showParallelTextExamples () {
     if (parallelTextDiv.querySelector('div')) {
         let parallelTextSplitted = parallelTextDiv.querySelector('div')!.textContent!.split(".");
         parallelTextSplitted = parallelTextSplitted.map(e => e.trim());
+        parallelTextSplitted = joinIfNextIsLowerCase(parallelTextSplitted);
         const text = document.querySelector('#textShowScreen')!.textContent;
         let textSplitted = text!.split(".");
         textSplitted = textSplitted.map(e => e.trim());
+        textSplitted = joinIfNextIsLowerCase(textSplitted);
         for (let term of collection) {
             let currentExample: number = -1;
             const example = term.querySelector('.exampleMain span')!;
@@ -22,7 +24,7 @@ export function showParallelTextExamples () {
                 parallelExample!.textContent = parallelTextSplitted[currentExample] + ".";
                 currentExample = parallelTextSplitted.findIndex(phrase => (phrase + ".").includes(<string>parallelExample!.textContent));
                 nextArrow?.addEventListener('click', () => {
-                    if (currentExample < parallelTextSplitted.length - 2) {
+                    if (currentExample < parallelTextSplitted.length - 1) {
                         currentExample += 1;
                         parallelExample!.textContent = parallelTextSplitted[currentExample] + ".";
                     } 

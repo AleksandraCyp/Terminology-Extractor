@@ -1,7 +1,10 @@
 import { showParallelTextExamples } from './showParallelTextExamples';
+import { joinIfNextIsLowerCase } from './joinIfNextIsLowerCase';
+
 
 export function showNextLastExample (liCollection: HTMLCollection, text: string) {
-    const textSplittedInPhrases: any = text.split(".");
+    let textSplittedInPhrases: any = text.split(".");
+    textSplittedInPhrases = joinIfNextIsLowerCase(textSplittedInPhrases);
     for (let li of liCollection) { 
        const nextArrow = li.querySelector('.exampleArrowRight');
        const lastArrow = li.querySelector('.exampleArrowLeft');
