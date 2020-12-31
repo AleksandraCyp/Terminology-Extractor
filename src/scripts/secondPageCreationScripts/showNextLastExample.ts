@@ -1,10 +1,8 @@
 import { showParallelTextExamples } from './showParallelTextExamples';
-import { joinIfNextIsLowerCase } from './joinIfNextIsLowerCase';
 
 
 export function showNextLastExample (liCollection: HTMLCollection, text: string) {
-    let textSplittedInPhrases: any = text.split(".");
-    textSplittedInPhrases = joinIfNextIsLowerCase(textSplittedInPhrases);
+    let textSplittedInPhrases: any = text.replace(/-\/-/g, "").replace(/([.?!…])\s*(?=[A-Z-–(])/g, "$1|").split("|")
     for (let li of liCollection) { 
        const nextArrow = li.querySelector('.exampleArrowRight');
        const lastArrow = li.querySelector('.exampleArrowLeft');
@@ -13,8 +11,8 @@ export function showNextLastExample (liCollection: HTMLCollection, text: string)
        const example = li.querySelector('.exampleMain span') as HTMLElement;  
        for (let phrase of textSplittedInPhrases) {
           if (phrase.includes(originalWord.value)) {
-             if (!examplesArray.includes(phrase.replaceAll(originalWord.value, `<span class="emphasizedWord">${originalWord.value}</span>` ).trim() + "." )) {
-                examplesArray.push(phrase.replaceAll(originalWord.value, `<span class="emphasizedWord">${originalWord.value}</span>` ).trim() + ".");
+             if (!examplesArray.includes(phrase.replaceAll(originalWord.value, `<span class="emphasizedWord">${originalWord.value}</span>` ).trim())) {
+                examplesArray.push(phrase.replaceAll(originalWord.value, `<span class="emphasizedWord">${originalWord.value}</span>` ).trim());
                 }
              } 
           } 
